@@ -1,0 +1,25 @@
+<ion-view view-title="" hide-nav-bar="true" hide-back-button="true" hide-tabs>
+  <ion-content class="login login-background" scroll="false">
+    <div class="login-inner">
+
+      <form class="form-inner">
+        <b class="input-label-b-login">Kullanıcı Adı</b>
+        <label class="item item-input ellipse-input">
+          <input type="text" placeholder="" ng-model="username" name="username" class="login-input-prop">
+        </label>
+        <br/>
+        <button class="button button-login ion-lock-combination" ng-click="login(username)">
+          ŞİFRE AL
+        </button>
+      </form>
+
+      <div class="info-login">
+        Giriş yapamıyorsanız lütfen <a href="" class="text-green">yöneticinizi</a> arayınız.
+      </div>
+
+      <div class="version-login">
+        v{{appVersion}}
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

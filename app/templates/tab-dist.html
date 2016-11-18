@@ -14,7 +14,7 @@
     </div>
   </ion-header-bar>
   <ion-content>
-    <ion-list show-reorder="data.showReorder" ng-if="false">
+    <!--<ion-list show-reorder="data.showReorder" ng-if="false">
       <ion-item class="item-avatar-left item-icon-right" go-click="/tab/dist/{{chat.id}}"
                 ng-repeat="chat in chats track by $index">
         <img ng-src="{{chat.face}}">
@@ -25,7 +25,64 @@
                             on-reorder="moveItem(chat, $fromIndex, $toIndex)">
         </ion-reorder-button>
       </ion-item>
+    </ion-list>-->
+
+    <!-- TEST LIST
+    <ion-list show-reorder="data.showReorder">
+      <ion-item ng-repeat="item in [0,1,2,3]"
+                class="item item-icon-right item-avatar item-button-right edit-padding-avatar" type="item-text-wrap">
+        <img ng-src="images/smartpol.png">
+        <h2 class="padding-right-30">asdqweasdqwe {{$index}}</h2>
+        <p class="padding-right-30">qweqweqweqweqweqwe {{$index}}</p>
+
+        <button class="button button-energized ink marging-top-10">
+          <i class="icon ion-ios-information right-30"></i>
+        </button>
+      </ion-item>
     </ion-list>
+    -->
+
+    <ion-list show-reorder="data.showReorder">
+      <ion-item ng-repeat="item in items"
+                class="item item-icon-right item-avatar item-button-right edit-padding-avatar" type="item-text-wrap">
+        <img ng-src="images/{{item.distType}}.png">
+        <h2 class="padding-right-35 margin-left-n-25">{{ item.WorkOrderDataInfo[0].Description }}</h2>
+        <p class="padding-right-35 margin-left-n-25">{{ item.WorkOrderDataInfo[item.WorkOrderDataInfo.length-1].Description }}</p>
+
+        <!--<i class="icon ion-chevron-right icon-accessory" ng-if="!data.showReorder"></i>-->
+
+        <!--<button class="button button-icon button-clear button-energized marging-top-10" ng-if="!data.showReorder">
+          <i class="icon ion-ios-information"></i>
+        </button>-->
+
+        <button class="button button-energized ink marging-top-10" ng-if="!data.showReorder" ng-click="itemDetailPopup(item)">
+          <i class="icon ion-ios-information right-30"></i>
+        </button>
+        <ion-reorder-button class="ion-navicon right-0"
+                            on-reorder="moveItem(item, $fromIndex, $toIndex)">
+        </ion-reorder-button>
+      </ion-item>
+    </ion-list>
+
+    <!--<ion-list show-reorder="data.showReorder">
+      <div ng-repeat="item in items" >
+        <ion-item class="item-stable"
+                  ng-click="toggleItem(item)"
+                  ng-class="{active: isItemShown(item)}">
+          <i class="icon" ng-class="isItemShown(item) ? 'ion-minus' : 'ion-plus'"></i>
+          &nbsp;
+          {{ item.WorkOrderDataInfo[0].Description }}
+
+          <ion-reorder-button class="ion-navicon right-0"
+                              on-reorder="moveItem(item, $fromIndex, $toIndex)">
+          </ion-reorder-button>
+        </ion-item>
+        <ion-item class="item-accordion white-space-initial"
+                  ng-if="isItemShown(item)">
+          <strong>Ayrınılar : </strong> {{ item.WorkOrderDataInfo[item.WorkOrderDataInfo.length-1].Description }}
+        </ion-item>
+      </div>
+    </ion-list>-->
   </ion-content>
 </ion-view>
 

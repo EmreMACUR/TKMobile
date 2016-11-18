@@ -3,23 +3,23 @@ var app = angular.module('TKMobile', [
   'starter.services',
   'ionic-material',
   'ngCordova',
-  'ngStorage']);
+  'ngStorage',
+  'ion-digit-keyboard',
+  'cera.ionicSuperPopup']);
 
-app.run(function($ionicPlatform, ionicMaterialInk, ionicMaterialMotion, $rootScope) {
+app.run(function($ionicPlatform, ionicMaterialInk, ionicMaterialMotion, $rootScope, $cordovaDevice, $localStorage) {
+  $localStorage.AppVersion = "1.0.0";
 
   $ionicPlatform.ready(function() {
+    $ionicPlatform.isFullScreen = true;
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-
-      //var PouchAdapterCordovaSqlite = require('../pouchdb-adapter-cordova-sqlite');
-      //cordova.sqlite_plugin.use_prefix = true; // use the legacy '_pouch' prefix
-      //PouchDB.plugin(PouchAdapterCordovaSqlite);
-
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
-
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+      cordova.plugins.Keyboard.disableScroll(false);
     }
     if (window.StatusBar) {
-      StatusBar.styleDefault();
+      //StatusBar.styleDefault();
+      StatusBar.overlaysWebView(true);
+      StatusBar.style(1);
     }
 
     ionicMaterialInk.displayEffect();
@@ -33,7 +33,6 @@ app.run(function($ionicPlatform, ionicMaterialInk, ionicMaterialMotion, $rootSco
 
     $rootScope.changeTab = function (tabName) {
       resetTabs();
-
       if(tabName == 'dash')
         $rootScope.isActiveDashboard = 'active';
       else if(tabName == 'dist')
@@ -44,6 +43,15 @@ app.run(function($ionicPlatform, ionicMaterialInk, ionicMaterialMotion, $rootSco
 
     $rootScope.changeTab('dist');
   });
+
+  document.addEventListener("deviceready", function () {
+    $localStorage.platform = $cordovaDevice.getPlatform();
+    $localStorage.uuid = $cordovaDevice.getUUID();
+    $localStorage.version = $cordovaDevice.getVersion();
+    $localStorage.deviceType = '' + $cordovaDevice.getManufacturer() + ' ' + $cordovaDevice.getModel();
+  }, false);
+
+  $localStorage.isAndroid = ionic.Platform.isAndroid();
 });
 
 app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
@@ -53,6 +61,18 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     url: '/tab',
     abstract: true,
     templateUrl: 'templates/tabs.html'
+  })
+
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'LoginController'
+  })
+
+  .state('password', {
+    url: '/password',
+    templateUrl: 'templates/password.html',
+    controller: 'PasswordController'
   })
 
   .state('tab.dash', {
@@ -94,7 +114,14 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     }
   });
 
+  //$urlRouterProvider.otherwise('/login');
+  //$urlRouterProvider.otherwise('/password');
   $urlRouterProvider.otherwise('/tab/dist');
   $ionicConfigProvider.tabs.position('bottom');
 
+})
+
+.constant('$ionicLoadingConfig', {
+  template: '<ion-spinner class="ionic-loading"></ion-spinner>',
+  number: 2000
 });

@@ -2,18 +2,15 @@
  * Created by oguzhancolak on 12.10.2016.
  */
 
-app.service("SyncSrvc",
+app.service("SyncService",
   function($rootScope, $q, SERVER) {
     var database;
     var changeListener;
 
     this.setDatabase = function() {
-      database = new PouchDB("syncDatabase_79.db", {
+      database = new PouchDB("syncDatabase_" + "50" + ".db", {
         adapter: 'websql',
-        auto_compaction: true,
-        iosDatabaseLocation: 'Library',
-        androidDatabaseImplementation: 2,
-        androidLockWorkaround: 1});
+        auto_compaction: true});
     };
 
     this.startListening = function() {
@@ -45,7 +42,7 @@ app.service("SyncSrvc",
     };
 
     this.sync = function() {
-      database.sync(SERVER.CouchIPDev + '79', {
+      database.sync(SERVER.CouchIP + "50", {
         live: true,
         retry: true})
         .on('error', function (err) {
@@ -82,5 +79,4 @@ app.service("SyncSrvc",
     this.destroy = function() {
       database.destroy();
     };
-
   });

@@ -25,6 +25,7 @@
     <!-- endbower -->
     <!-- endbuild -->
     <link href="styles/style.css" rel="stylesheet">
+    <link href="styles/ionic-super-popup.css" rel="stylesheet">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="styles/ionic.app.css" rel="stylesheet">
@@ -51,6 +52,8 @@
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
+    <script src="bower_components/ion-digit-keyboard.min.js"></script>
+    <script src="bower_components/ionic-super-popup.js"></script>
 
     <!-- your app's js -->
     <!-- build:js scripts/scripts.js -->
@@ -64,10 +67,21 @@
     <script src="scripts/controllers/DistributionController.js"></script>
     <script src="scripts/controllers/DistributionDetailController.js"></script>
     <script src="scripts/controllers/SettingsController.js"></script>
+    <script src="scripts/controllers/LoginController.js"></script>
+    <script src="scripts/controllers/PasswordController.js"></script>
     <!-- end controllers -->
 
     <!-- start services -->
-    <script src="scripts/services/SyncSrvc.js"></script>
+    <script src="scripts/services/SyncSerivce.js"></script>
+    <script src="scripts/services/FileOpenService.js"></script>
+    <script src="scripts/services/UpdateService.js"></script>
+    <script src="scripts/services/VersionControlService.js"></script>
+    <script src="scripts/services/LoginService.js"></script>
+    <script src="scripts/services/ProgressDialogService.js"></script>
+    <script src="scripts/services/DialogService.js"></script>
+    <script src="scripts/services/PhotoLibraryService.js"></script>
+    <script src="scripts/services/FileService.js"></script>
+    <script src="scripts/services/CameraService.js"></script>
     <!-- end services -->
 
     <!-- start factories -->
@@ -75,6 +89,7 @@
 
     <!-- start directives -->
     <script src="scripts/directives/goClickDirective.js"></script>
+    <script src="scripts/directives/hideTabsDirective.js"></script>
     <!-- end directives -->
 
     <!-- start constants -->
